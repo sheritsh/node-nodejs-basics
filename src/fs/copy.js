@@ -4,11 +4,15 @@
    created Error with message FS operation failed must be thrown) */
 
 import * as fs from 'node:fs/promises';
-import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const copy = async () => {
-  const srcFolder = join('files');
-  const destFolder = join('files_copy');
+  const srcFolder = join(__dirname, 'files');
+  const destFolder = join(__dirname, 'files_copy');
 
   try {
     await fs.access(srcFolder);

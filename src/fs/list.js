@@ -3,10 +3,14 @@
    with message FS operation failed must be thrown) */
 
 import * as fs from 'node:fs/promises';
-import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const list = async () => {
-  const folderPath = join('files');
+  const folderPath = join(__dirname, 'files');
 
   try {
     await fs.access(folderPath);

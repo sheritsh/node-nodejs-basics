@@ -4,11 +4,15 @@
    Error with message FS operation failed must be thrown) */
 
 import * as fs from 'node:fs/promises';
-import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const rename = async () => {
-  const filePath = join('files', 'wrongFilename.txt');
-  const newPath = join('files', 'properFilename.md');
+  const filePath = join(__dirname, 'files', 'wrongFilename.txt');
+  const newPath = join(__dirname, 'files', 'properFilename.md');
 
   try {
     await fs.access(filePath);

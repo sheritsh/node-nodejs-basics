@@ -14,13 +14,18 @@ error in worker                                                           */
 
 import { cpus } from 'node:os';
 import { Worker } from 'node:worker_threads';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const performCalculations = async () => {
   const cpuAmount = cpus().length;
   const workers = [];
 
   for (let i = 0; i < cpuAmount; i++) {
-    const worker = new Worker('./worker.js');
+    const worker = new Worker(join(__dirname, './worker.js'));
 
     const promise = new Promise((resolve) => {
       worker.once('message', (data) => {
