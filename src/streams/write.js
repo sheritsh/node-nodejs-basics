@@ -7,7 +7,7 @@ import { join } from 'node:path';
 const write = async () => {
   const filePath = join('files', 'fileToWrite.txt');
 
-  const ws = createWriteStream(filePath);
+  const ws = createWriteStream(filePath, { flags: 'a' });
 
   process.stdin.pipe(ws);
 
